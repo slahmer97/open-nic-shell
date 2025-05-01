@@ -1,4 +1,3 @@
-`include "open_nic_shell_macros.vh"
 `timescale 1ns/1ps
 module fpga #(
   parameter [31:0] BUILD_TIMESTAMP = 32'h01010000,
@@ -85,128 +84,114 @@ module fpga #(
 
 
 
-  wire       [NUM_QDMA-1:0] axil_qdma_awvalid;
-  wire    [32*NUM_QDMA-1:0] axil_qdma_awaddr;
-  wire       [NUM_QDMA-1:0] axil_qdma_awready;
-  wire       [NUM_QDMA-1:0] axil_qdma_wvalid;
-  wire    [32*NUM_QDMA-1:0] axil_qdma_wdata;
-  wire       [NUM_QDMA-1:0] axil_qdma_wready;
-  wire       [NUM_QDMA-1:0] axil_qdma_bvalid;
-  wire     [2*NUM_QDMA-1:0] axil_qdma_bresp;
-  wire       [NUM_QDMA-1:0] axil_qdma_bready;
-  wire       [NUM_QDMA-1:0] axil_qdma_arvalid;
-  wire    [32*NUM_QDMA-1:0] axil_qdma_araddr;
-  wire       [NUM_QDMA-1:0] axil_qdma_arready;
-  wire       [NUM_QDMA-1:0] axil_qdma_rvalid;
-  wire    [32*NUM_QDMA-1:0] axil_qdma_rdata;
-  wire     [2*NUM_QDMA-1:0] axil_qdma_rresp;
-  wire       [NUM_QDMA-1:0] axil_qdma_rready;
+  wire         axil_qdma_awvalid;
+  wire [31:0]  axil_qdma_awaddr;
+  wire         axil_qdma_awready;
+  wire         axil_qdma_wvalid;
+  wire [31:0]  axil_qdma_wdata;
+  wire         axil_qdma_wready;
+  wire         axil_qdma_bvalid;
+  wire  [1:0]  axil_qdma_bresp;
+  wire         axil_qdma_bready;
+  wire         axil_qdma_arvalid;
+  wire [31:0]  axil_qdma_araddr;
+  wire         axil_qdma_arready;
+  wire         axil_qdma_rvalid;
+  wire [31:0]  axil_qdma_rdata;
+  wire  [1:0]  axil_qdma_rresp;
+  wire         axil_qdma_rready;
 
-  wire     [NUM_CMAC_PORT-1:0] axil_adap_awvalid;
-  wire  [32*NUM_CMAC_PORT-1:0] axil_adap_awaddr;
-  wire     [NUM_CMAC_PORT-1:0] axil_adap_awready;
-  wire     [NUM_CMAC_PORT-1:0] axil_adap_wvalid;
-  wire  [32*NUM_CMAC_PORT-1:0] axil_adap_wdata;
-  wire     [NUM_CMAC_PORT-1:0] axil_adap_wready;
-  wire     [NUM_CMAC_PORT-1:0] axil_adap_bvalid;
-  wire   [2*NUM_CMAC_PORT-1:0] axil_adap_bresp;
-  wire     [NUM_CMAC_PORT-1:0] axil_adap_bready;
-  wire     [NUM_CMAC_PORT-1:0] axil_adap_arvalid;
-  wire  [32*NUM_CMAC_PORT-1:0] axil_adap_araddr;
-  wire     [NUM_CMAC_PORT-1:0] axil_adap_arready;
-  wire     [NUM_CMAC_PORT-1:0] axil_adap_rvalid;
-  wire  [32*NUM_CMAC_PORT-1:0] axil_adap_rdata;
-  wire   [2*NUM_CMAC_PORT-1:0] axil_adap_rresp;
-  wire     [NUM_CMAC_PORT-1:0] axil_adap_rready;
+  wire         axil_adap_awvalid;
+  wire [31:0]  axil_adap_awaddr;
+  wire         axil_adap_awready;
+  wire         axil_adap_wvalid;
+  wire [31:0]  axil_adap_wdata;
+  wire         axil_adap_wready;
+  wire         axil_adap_bvalid;
+  wire  [1:0]  axil_adap_bresp;
+  wire         axil_adap_bready;
+  wire         axil_adap_arvalid;
+  wire [31:0]  axil_adap_araddr;
+  wire         axil_adap_arready;
+  wire         axil_adap_rvalid;
+  wire [31:0]  axil_adap_rdata;
+  wire  [1:0]  axil_adap_rresp;
+  wire         axil_adap_rready;
 
-  wire     [NUM_CMAC_PORT-1:0] axil_cmac_awvalid;
-  wire  [32*NUM_CMAC_PORT-1:0] axil_cmac_awaddr;
-  wire     [NUM_CMAC_PORT-1:0] axil_cmac_awready;
-  wire     [NUM_CMAC_PORT-1:0] axil_cmac_wvalid;
-  wire  [32*NUM_CMAC_PORT-1:0] axil_cmac_wdata;
-  wire     [NUM_CMAC_PORT-1:0] axil_cmac_wready;
-  wire     [NUM_CMAC_PORT-1:0] axil_cmac_bvalid;
-  wire   [2*NUM_CMAC_PORT-1:0] axil_cmac_bresp;
-  wire     [NUM_CMAC_PORT-1:0] axil_cmac_bready;
-  wire     [NUM_CMAC_PORT-1:0] axil_cmac_arvalid;
-  wire  [32*NUM_CMAC_PORT-1:0] axil_cmac_araddr;
-  wire     [NUM_CMAC_PORT-1:0] axil_cmac_arready;
-  wire     [NUM_CMAC_PORT-1:0] axil_cmac_rvalid;
-  wire  [32*NUM_CMAC_PORT-1:0] axil_cmac_rdata;
-  wire   [2*NUM_CMAC_PORT-1:0] axil_cmac_rresp;
-  wire     [NUM_CMAC_PORT-1:0] axil_cmac_rready;
+  wire         axil_cmac_awvalid;
+  wire [31:0]  axil_cmac_awaddr;
+  wire         axil_cmac_awready;
+  wire         axil_cmac_wvalid;
+  wire [31:0]  axil_cmac_wdata;
+  wire         axil_cmac_wready;
+  wire         axil_cmac_bvalid;
+  wire  [1:0]  axil_cmac_bresp;
+  wire         axil_cmac_bready;
+  wire         axil_cmac_arvalid;
+  wire [31:0]  axil_cmac_araddr;
+  wire         axil_cmac_arready;
+  wire         axil_cmac_rvalid;
+  wire [31:0]  axil_cmac_rdata;
+  wire  [1:0]  axil_cmac_rresp;
+  wire         axil_cmac_rready;
 
-  wire                         axil_box0_awvalid;
-  wire                  [31:0] axil_box0_awaddr;
-  wire                         axil_box0_awready;
-  wire                         axil_box0_wvalid;
-  wire                  [31:0] axil_box0_wdata;
-  wire                         axil_box0_wready;
-  wire                         axil_box0_bvalid;
-  wire                   [1:0] axil_box0_bresp;
-  wire                         axil_box0_bready;
-  wire                         axil_box0_arvalid;
-  wire                  [31:0] axil_box0_araddr;
-  wire                         axil_box0_arready;
-  wire                         axil_box0_rvalid;
-  wire                  [31:0] axil_box0_rdata;
-  wire                   [1:0] axil_box0_rresp;
-  wire                         axil_box0_rready;
+  wire                         axil_core_awvalid;
+  wire                  [31:0] axil_core_awaddr;
+  wire                         axil_core_awready;
+  wire                         axil_core_wvalid;
+  wire                  [31:0] axil_core_wdata;
+  wire                         axil_core_wready;
+  wire                         axil_core_bvalid;
+  wire                   [1:0] axil_core_bresp;
+  wire                         axil_core_bready;
+  wire                         axil_core_arvalid;
+  wire                  [31:0] axil_core_araddr;
+  wire                         axil_core_arready;
+  wire                         axil_core_rvalid;
+  wire                  [31:0] axil_core_rdata;
+  wire                   [1:0] axil_core_rresp;
+  wire                         axil_core_rready;
 
-  wire                         axil_box1_awvalid;
-  wire                  [31:0] axil_box1_awaddr;
-  wire                         axil_box1_awready;
-  wire                         axil_box1_wvalid;
-  wire                  [31:0] axil_box1_wdata;
-  wire                         axil_box1_wready;
-  wire                         axil_box1_bvalid;
-  wire                   [1:0] axil_box1_bresp;
-  wire                         axil_box1_bready;
-  wire                         axil_box1_arvalid;
-  wire                  [31:0] axil_box1_araddr;
-  wire                         axil_box1_arready;
-  wire                         axil_box1_rvalid;
-  wire                  [31:0] axil_box1_rdata;
-  wire                   [1:0] axil_box1_rresp;
-  wire                         axil_box1_rready;
+
 
   // QDMA subsystem interfaces to the box running at 250MHz
-  wire     [NUM_PHYS_FUNC*NUM_QDMA-1:0] axis_qdma_h2c_tvalid;
-  wire [512*NUM_PHYS_FUNC*NUM_QDMA-1:0] axis_qdma_h2c_tdata;
-  wire  [64*NUM_PHYS_FUNC*NUM_QDMA-1:0] axis_qdma_h2c_tkeep;
-  wire     [NUM_PHYS_FUNC*NUM_QDMA-1:0] axis_qdma_h2c_tlast;
-  wire  [16*NUM_PHYS_FUNC*NUM_QDMA-1:0] axis_qdma_h2c_tuser_size;
-  wire  [16*NUM_PHYS_FUNC*NUM_QDMA-1:0] axis_qdma_h2c_tuser_src;
-  wire  [16*NUM_PHYS_FUNC*NUM_QDMA-1:0] axis_qdma_h2c_tuser_dst;
-  wire     [NUM_PHYS_FUNC*NUM_QDMA-1:0] axis_qdma_h2c_tready;
+  wire [NUM_PHYS_FUNC-1:0]        axis_qdma_h2c_tvalid;
+  wire [512*NUM_PHYS_FUNC-1:0]    axis_qdma_h2c_tdata;
+  wire [64*NUM_PHYS_FUNC-1:0]     axis_qdma_h2c_tkeep;
+  wire [NUM_PHYS_FUNC-1:0]        axis_qdma_h2c_tlast;
+  wire [16*NUM_PHYS_FUNC-1:0]     axis_qdma_h2c_tuser_size;
+  wire [16*NUM_PHYS_FUNC-1:0]     axis_qdma_h2c_tuser_src;
+  wire [16*NUM_PHYS_FUNC-1:0]     axis_qdma_h2c_tuser_dst;
+  wire [NUM_PHYS_FUNC-1:0]        axis_qdma_h2c_tready;
 
-  wire     [NUM_PHYS_FUNC*NUM_QDMA-1:0] axis_qdma_c2h_tvalid;
-  wire [512*NUM_PHYS_FUNC*NUM_QDMA-1:0] axis_qdma_c2h_tdata;
-  wire  [64*NUM_PHYS_FUNC*NUM_QDMA-1:0] axis_qdma_c2h_tkeep;
-  wire     [NUM_PHYS_FUNC*NUM_QDMA-1:0] axis_qdma_c2h_tlast;
-  wire  [16*NUM_PHYS_FUNC*NUM_QDMA-1:0] axis_qdma_c2h_tuser_size;
-  wire  [16*NUM_PHYS_FUNC*NUM_QDMA-1:0] axis_qdma_c2h_tuser_src;
-  wire  [16*NUM_PHYS_FUNC*NUM_QDMA-1:0] axis_qdma_c2h_tuser_dst;
-  wire     [NUM_PHYS_FUNC*NUM_QDMA-1:0] axis_qdma_c2h_tready;
-
+  wire [NUM_PHYS_FUNC-1:0]      axis_qdma_c2h_tvalid;
+  wire [512*NUM_PHYS_FUNC-1:0]  axis_qdma_c2h_tdata;
+  wire [64*NUM_PHYS_FUNC-1:0]   axis_qdma_c2h_tkeep;
+  wire [NUM_PHYS_FUNC-1:0]      axis_qdma_c2h_tlast;
+  wire [16*NUM_PHYS_FUNC-1:0]   axis_qdma_c2h_tuser_size;
+  wire [16*NUM_PHYS_FUNC-1:0]   axis_qdma_c2h_tuser_src;
+  wire [16*NUM_PHYS_FUNC-1:0]   axis_qdma_c2h_tuser_dst;
+  wire [NUM_PHYS_FUNC-1:0]      axis_qdma_c2h_tready;
+  
+  
   // Packet adapter interfaces to the box running at 250MHz
-  wire     [NUM_CMAC_PORT-1:0] axis_adap_tx_250mhz_tvalid;
-  wire [512*NUM_CMAC_PORT-1:0] axis_adap_tx_250mhz_tdata;
-  wire  [64*NUM_CMAC_PORT-1:0] axis_adap_tx_250mhz_tkeep;
-  wire     [NUM_CMAC_PORT-1:0] axis_adap_tx_250mhz_tlast;
-  wire  [16*NUM_CMAC_PORT-1:0] axis_adap_tx_250mhz_tuser_size;
-  wire  [16*NUM_CMAC_PORT-1:0] axis_adap_tx_250mhz_tuser_src;
-  wire  [16*NUM_CMAC_PORT-1:0] axis_adap_tx_250mhz_tuser_dst;
-  wire     [NUM_CMAC_PORT-1:0] axis_adap_tx_250mhz_tready;
+  wire        axis_adap_tx_250mhz_tvalid;
+  wire [511:0] axis_adap_tx_250mhz_tdata;
+  wire [63:0]  axis_adap_tx_250mhz_tkeep;
+  wire        axis_adap_tx_250mhz_tlast;
+  wire [15:0]  axis_adap_tx_250mhz_tuser_size;
+  wire [15:0]  axis_adap_tx_250mhz_tuser_src;
+  wire [15:0]  axis_adap_tx_250mhz_tuser_dst;
+  wire        axis_adap_tx_250mhz_tready;
 
-  wire     [NUM_CMAC_PORT-1:0] axis_adap_rx_250mhz_tvalid;
-  wire [512*NUM_CMAC_PORT-1:0] axis_adap_rx_250mhz_tdata;
-  wire  [64*NUM_CMAC_PORT-1:0] axis_adap_rx_250mhz_tkeep;
-  wire     [NUM_CMAC_PORT-1:0] axis_adap_rx_250mhz_tlast;
-  wire  [16*NUM_CMAC_PORT-1:0] axis_adap_rx_250mhz_tuser_size;
-  wire  [16*NUM_CMAC_PORT-1:0] axis_adap_rx_250mhz_tuser_src;
-  wire  [16*NUM_CMAC_PORT-1:0] axis_adap_rx_250mhz_tuser_dst;
-  wire     [NUM_CMAC_PORT-1:0] axis_adap_rx_250mhz_tready;
+  wire        axis_adap_rx_250mhz_tvalid;
+  wire [511:0] axis_adap_rx_250mhz_tdata;
+  wire [63:0]  axis_adap_rx_250mhz_tkeep;
+  wire        axis_adap_rx_250mhz_tlast;
+  wire [15:0]  axis_adap_rx_250mhz_tuser_size;
+  wire [15:0]  axis_adap_rx_250mhz_tuser_src;
+  wire [15:0]  axis_adap_rx_250mhz_tuser_dst;
+  wire        axis_adap_rx_250mhz_tready;
 
   // Packet adapter interfaces to the box running at 322MHz
   wire     [NUM_CMAC_PORT-1:0] axis_adap_tx_322mhz_tvalid;
@@ -223,67 +208,60 @@ module fpga #(
   wire     [NUM_CMAC_PORT-1:0] axis_adap_rx_322mhz_tuser_err;
 
   // CMAC subsystem interfaces to the box running at 322MHz
-  wire     [NUM_CMAC_PORT-1:0] axis_cmac_tx_tvalid;
-  wire [512*NUM_CMAC_PORT-1:0] axis_cmac_tx_tdata;
-  wire  [64*NUM_CMAC_PORT-1:0] axis_cmac_tx_tkeep;
-  wire     [NUM_CMAC_PORT-1:0] axis_cmac_tx_tlast;
-  wire     [NUM_CMAC_PORT-1:0] axis_cmac_tx_tuser_err;
-  wire     [NUM_CMAC_PORT-1:0] axis_cmac_tx_tready;
+  wire        axis_cmac_tx_tvalid;
+  wire [511:0] axis_cmac_tx_tdata;
+  wire [63:0]  axis_cmac_tx_tkeep;
+  wire        axis_cmac_tx_tlast;
+  wire        axis_cmac_tx_tuser_err;
+  wire        axis_cmac_tx_tready;
 
-  wire     [NUM_CMAC_PORT-1:0] axis_cmac_rx_tvalid;
-  wire [512*NUM_CMAC_PORT-1:0] axis_cmac_rx_tdata;
-  wire  [64*NUM_CMAC_PORT-1:0] axis_cmac_rx_tkeep;
-  wire     [NUM_CMAC_PORT-1:0] axis_cmac_rx_tlast;
-  wire     [NUM_CMAC_PORT-1:0] axis_cmac_rx_tuser_err;
+  wire        axis_cmac_rx_tvalid;
+  wire [511:0] axis_cmac_rx_tdata;
+  wire [63:0]  axis_cmac_rx_tkeep;
+  wire        axis_cmac_rx_tlast;
+  wire        axis_cmac_rx_tuser_err;
 
-  wire                  [31:0] shell_rstn;
-  wire                  [31:0] shell_rst_done;
-  wire          [NUM_QDMA-1:0] qdma_rstn;
-  wire          [NUM_QDMA-1:0] qdma_rst_done;
-  wire     [NUM_CMAC_PORT-1:0] adap_rstn;
-  wire     [NUM_CMAC_PORT-1:0] adap_rst_done;
-  wire     [NUM_CMAC_PORT-1:0] cmac_rstn;
-  wire     [NUM_CMAC_PORT-1:0] cmac_rst_done;
+  wire [31:0] shell_rstn;
+  wire [31:0] shell_rst_done;
+  wire        qdma_rstn;
+  wire        qdma_rst_done;
+  wire        adap_rstn;
+  wire        adap_rst_done;
+  wire        cmac_rstn;
+  wire        cmac_rst_done;
 
-  wire                  [31:0] user_rstn;
-  wire                  [31:0] user_rst_done;
-  wire                  [15:0] user_250mhz_rstn;
-  wire                  [15:0] user_250mhz_rst_done;
-  wire                   [7:0] user_322mhz_rstn;
-  wire                   [7:0] user_322mhz_rst_done;
-  wire                         box_250mhz_rstn;
-  wire                         box_250mhz_rst_done;
-  wire                         box_322mhz_rstn;
-  wire                         box_322mhz_rst_done;
+  wire [31:0] user_rstn;
+  wire [31:0] user_rst_done;
+  wire [15:0] user_250mhz_rstn;
+  wire [15:0] user_250mhz_rst_done;
+  wire [ 7:0] user_322mhz_rstn;
+  wire [ 7:0] user_322mhz_rst_done;
+  wire        box_250mhz_rstn;
+  wire        box_250mhz_rst_done;
+  wire        box_322mhz_rstn;
+  wire        box_322mhz_rst_done;
 
-  wire          [NUM_QDMA-1:0] axil_aclk;
-  wire          [NUM_QDMA-1:0] axis_aclk;
-
-
-  wire                         ref_clk_100mhz;
-
-
-  wire     [NUM_CMAC_PORT-1:0] cmac_clk;
+  wire        axil_aclk;
+  wire        axis_aclk;
+  wire        ref_clk_100mhz;
+  wire        cmac_clk;
 
   // Unused reset pairs must have their "reset_done" tied to 1
 
-  // First 4-bit for QDMA subsystem
-  assign qdma_rstn                    = shell_rstn[NUM_QDMA-1:0];
-  assign shell_rst_done[NUM_QDMA-1:0] = qdma_rst_done;
-  assign shell_rst_done[3:NUM_QDMA]   = {4-NUM_QDMA{1'b1}};
+ 
+  // First 4 bits: QDMA subsystem
+  assign qdma_rstn                  = shell_rstn[0];
+  assign shell_rst_done[0]          = qdma_rst_done;
+  assign shell_rst_done[3:1]        = 3'b111;
 
-  // For each CMAC port, use the subsequent 4-bit: bit 0 for CMAC subsystem and
-  // bit 1 for the corresponding adapter
-  generate for (genvar i = 0; i < NUM_CMAC_PORT; i++) begin: cmac_rst
-    assign {adap_rstn[i], cmac_rstn[i]} = {shell_rstn[(i+1)*4+1], shell_rstn[(i+1)*4]};
-    assign shell_rst_done[(i+1)*4 +: 4] = {2'b11, adap_rst_done[i], cmac_rst_done[i]};
-  end: cmac_rst
-  endgenerate
+  // Next 4 bits: CMAC port 0 (bit 4) and its adapter (bit 5)
+  assign {adap_rstn, cmac_rstn}     = {shell_rstn[5], shell_rstn[4]};
+  assign shell_rst_done[7:4]        = {2'b11, adap_rst_done, cmac_rst_done};
 
-  generate for (genvar i = (NUM_CMAC_PORT+1)*4; i < 32; i++) begin: unused_rst
-    assign shell_rst_done[i] = 1'b1;
-  end: unused_rst
-  endgenerate
+  // Remaining shell_rst_done bits [31:8] unused ? all ones
+  assign shell_rst_done[31:8]       = {24{1'b1}};
+  
+  
 
   // The box running at 250MHz takes 16+1 user reset pairs, with the extra one
   // used by the box itself.  Similarly, the box running at 322MHz takes 8+1
@@ -292,15 +270,17 @@ module fpga #(
   // | 31    | 30    | 29 ... 24 | 23 ... 16 | 15 ... 0 |
   // ----------------------------------------------------
   // | b@250 | b@322 | Reserved  | user@322  | user@250 |
-  assign user_250mhz_rstn     = user_rstn[15:0];
-  assign user_rst_done[15:0]  = user_250mhz_rst_done;
-  assign user_322mhz_rstn     = user_rstn[23:16];
-  assign user_rst_done[23:16] = user_322mhz_rst_done;
+  // User resets (250 MHz @ bits [15:0], 322 MHz @ bits [23:16])
+  assign user_250mhz_rstn           = user_rstn[15:0];
+  assign user_rst_done[15:0]        = user_250mhz_rst_done;
+  assign user_322mhz_rstn           = user_rstn[23:16];
+  assign user_rst_done[23:16]       = user_322mhz_rst_done;
 
-  assign box_250mhz_rstn      = user_rstn[31];
-  assign user_rst_done[31]    = box_250mhz_rst_done;
-  assign box_322mhz_rstn      = user_rstn[30];
-  assign user_rst_done[30]    = box_322mhz_rst_done;
+  // Box resets (250 MHz @ bit 31, 322 MHz @ bit 30)
+  assign box_250mhz_rstn            = user_rstn[31];
+  assign user_rst_done[31]          = box_250mhz_rst_done;
+  assign box_322mhz_rstn            = user_rstn[30];
+  assign user_rst_done[30]          = box_322mhz_rst_done;
 
   // Unused pairs must have their rst_done signals tied to 1
   assign user_rst_done[29:24] = {6{1'b1}};
@@ -389,7 +369,7 @@ module fpga #(
     .m_axil_cmac_rdata   (axil_cmac_rdata),
     .m_axil_cmac_rresp   (axil_cmac_rresp),
     .m_axil_cmac_rready  (axil_cmac_rready),
-
+/*
     .m_axil_box0_awvalid (axil_box0_awvalid),
     .m_axil_box0_awaddr  (axil_box0_awaddr),
     .m_axil_box0_awready (axil_box0_awready),
@@ -423,7 +403,25 @@ module fpga #(
     .m_axil_box1_rdata   (axil_box1_rdata),
     .m_axil_box1_rresp   (axil_box1_rresp),
     .m_axil_box1_rready  (axil_box1_rready),
-
+*/
+     .m_axil_core_awvalid(axil_core_awvalid),
+     .m_axil_core_awaddr(axil_core_awaddr),
+     .m_axil_core_awready(axil_core_awready),
+     .m_axil_core_wvalid(axil_core_wvalid),
+     .m_axil_core_wdata(axil_core_wdata),
+     .m_axil_core_wready(axil_core_wready),
+     .m_axil_core_bvalid(axil_core_bvalid),
+     .m_axil_core_bresp(axil_core_bresp),
+     .m_axil_core_bready(axil_core_bready),
+     .m_axil_core_arvalid(axil_core_arvalid),
+     .m_axil_core_araddr(axil_core_araddr),
+     .m_axil_core_arready(axil_core_arready),
+     .m_axil_core_rvalid(axil_core_rvalid),
+     .m_axil_core_rdata(axil_core_rdata),
+     .m_axil_core_rresp(axil_core_rresp),
+     .m_axil_core_rready(axil_core_rready),
+    
+    
     .shell_rstn          (shell_rstn),
     .shell_rst_done      (shell_rst_done),
     .user_rstn           (user_rstn),
@@ -584,20 +582,7 @@ module fpga #(
         .s_axis_rx_tlast            (axis_cmac_rx_tlast),
         .s_axis_rx_tuser_err        (axis_cmac_rx_tuser_err),
     
-/*
-      .m_axis_tx_tvalid     (axis_adap_tx_322mhz_tvalid),
-      .m_axis_tx_tdata      (axis_adap_tx_322mhz_tdata),
-      .m_axis_tx_tkeep      (axis_adap_tx_322mhz_tkeep),
-      .m_axis_tx_tlast      (axis_adap_tx_322mhz_tlast),
-      .m_axis_tx_tuser_err  (axis_adap_tx_322mhz_tuser_err),
-      .m_axis_tx_tready     (axis_adap_tx_322mhz_tready),
 
-      .s_axis_rx_tvalid     (axis_adap_rx_322mhz_tvalid),
-      .s_axis_rx_tdata      (axis_adap_rx_322mhz_tdata),
-      .s_axis_rx_tkeep      (axis_adap_rx_322mhz_tkeep),
-      .s_axis_rx_tlast      (axis_adap_rx_322mhz_tlast),
-      .s_axis_rx_tuser_err  (axis_adap_rx_322mhz_tuser_err),
-*/
       .mod_rstn             (adap_rstn),
       .mod_rst_done         (adap_rst_done),
 
@@ -665,23 +650,23 @@ module fpga #(
     .NUM_PHYS_FUNC (NUM_PHYS_FUNC),
     .NUM_QDMA      (NUM_QDMA),
     .NUM_CMAC_PORT (NUM_CMAC_PORT)
-  ) box_250mhz_inst (
-    .s_axil_awvalid                   (axil_box0_awvalid),
-    .s_axil_awaddr                    (axil_box0_awaddr),
-    .s_axil_awready                   (axil_box0_awready),
-    .s_axil_wvalid                    (axil_box0_wvalid),
-    .s_axil_wdata                     (axil_box0_wdata),
-    .s_axil_wready                    (axil_box0_wready),
-    .s_axil_bvalid                    (axil_box0_bvalid),
-    .s_axil_bresp                     (axil_box0_bresp),
-    .s_axil_bready                    (axil_box0_bready),
-    .s_axil_arvalid                   (axil_box0_arvalid),
-    .s_axil_araddr                    (axil_box0_araddr),
-    .s_axil_arready                   (axil_box0_arready),
-    .s_axil_rvalid                    (axil_box0_rvalid),
-    .s_axil_rdata                     (axil_box0_rdata),
-    .s_axil_rresp                     (axil_box0_rresp),
-    .s_axil_rready                    (axil_box0_rready),
+  ) fpga_core (
+    .s_axil_awvalid                   (axil_core_awvalid),
+    .s_axil_awaddr                    (axil_core_awaddr),
+    .s_axil_awready                   (axil_core_awready),
+    .s_axil_wvalid                    (axil_core_wvalid),
+    .s_axil_wdata                     (axil_core_wdata),
+    .s_axil_wready                    (axil_core_wready),
+    .s_axil_bvalid                    (axil_core_bvalid),
+    .s_axil_bresp                     (axil_core_bresp),
+    .s_axil_bready                    (axil_core_bready),
+    .s_axil_arvalid                   (axil_core_arvalid),
+    .s_axil_araddr                    (axil_core_araddr),
+    .s_axil_arready                   (axil_core_arready),
+    .s_axil_rvalid                    (axil_core_rvalid),
+    .s_axil_rdata                     (axil_core_rdata),
+    .s_axil_rresp                     (axil_core_rresp),
+    .s_axil_rready                    (axil_core_rready),
 
     .s_axis_qdma_h2c_tvalid           (axis_qdma_h2c_tvalid),
     .s_axis_qdma_h2c_tdata            (axis_qdma_h2c_tdata),
@@ -731,64 +716,5 @@ module fpga #(
  
     .axis_aclk                        (axis_aclk)
   );
-/*
-  box_322mhz #(
-    .MIN_PKT_LEN   (MIN_PKT_LEN),
-    .MAX_PKT_LEN   (MAX_PKT_LEN),
-    .NUM_CMAC_PORT (NUM_CMAC_PORT)
-  ) box_322mhz_inst (
-    .s_axil_awvalid                  (axil_box1_awvalid),
-    .s_axil_awaddr                   (axil_box1_awaddr),
-    .s_axil_awready                  (axil_box1_awready),
-    .s_axil_wvalid                   (axil_box1_wvalid),
-    .s_axil_wdata                    (axil_box1_wdata),
-    .s_axil_wready                   (axil_box1_wready),
-    .s_axil_bvalid                   (axil_box1_bvalid),
-    .s_axil_bresp                    (axil_box1_bresp),
-    .s_axil_bready                   (axil_box1_bready),
-    .s_axil_arvalid                  (axil_box1_arvalid),
-    .s_axil_araddr                   (axil_box1_araddr),
-    .s_axil_arready                  (axil_box1_arready),
-    .s_axil_rvalid                   (axil_box1_rvalid),
-    .s_axil_rdata                    (axil_box1_rdata),
-    .s_axil_rresp                    (axil_box1_rresp),
-    .s_axil_rready                   (axil_box1_rready),
-
-    .s_axis_adap_tx_322mhz_tvalid    (axis_adap_tx_322mhz_tvalid),
-    .s_axis_adap_tx_322mhz_tdata     (axis_adap_tx_322mhz_tdata),
-    .s_axis_adap_tx_322mhz_tkeep     (axis_adap_tx_322mhz_tkeep),
-    .s_axis_adap_tx_322mhz_tlast     (axis_adap_tx_322mhz_tlast),
-    .s_axis_adap_tx_322mhz_tuser_err (axis_adap_tx_322mhz_tuser_err),
-    .s_axis_adap_tx_322mhz_tready    (axis_adap_tx_322mhz_tready),
-
-    .m_axis_adap_rx_322mhz_tvalid    (axis_adap_rx_322mhz_tvalid),
-    .m_axis_adap_rx_322mhz_tdata     (axis_adap_rx_322mhz_tdata),
-    .m_axis_adap_rx_322mhz_tkeep     (axis_adap_rx_322mhz_tkeep),
-    .m_axis_adap_rx_322mhz_tlast     (axis_adap_rx_322mhz_tlast),
-    .m_axis_adap_rx_322mhz_tuser_err (axis_adap_rx_322mhz_tuser_err),
-
-    .m_axis_cmac_tx_tvalid           (axis_cmac_tx_tvalid),
-    .m_axis_cmac_tx_tdata            (axis_cmac_tx_tdata),
-    .m_axis_cmac_tx_tkeep            (axis_cmac_tx_tkeep),
-    .m_axis_cmac_tx_tlast            (axis_cmac_tx_tlast),
-    .m_axis_cmac_tx_tuser_err        (axis_cmac_tx_tuser_err),
-    .m_axis_cmac_tx_tready           (axis_cmac_tx_tready),
-
-    .s_axis_cmac_rx_tvalid           (axis_cmac_rx_tvalid),
-    .s_axis_cmac_rx_tdata            (axis_cmac_rx_tdata),
-    .s_axis_cmac_rx_tkeep            (axis_cmac_rx_tkeep),
-    .s_axis_cmac_rx_tlast            (axis_cmac_rx_tlast),
-    .s_axis_cmac_rx_tuser_err        (axis_cmac_rx_tuser_err),
-
-    .mod_rstn                        (user_322mhz_rstn),
-    .mod_rst_done                    (user_322mhz_rst_done),
-
-    .box_rstn                        (box_322mhz_rstn),
-    .box_rst_done                    (box_322mhz_rst_done),
-
-    .axil_aclk                       (axil_aclk[0]),
-    .cmac_clk                        (cmac_clk)
-  );
-  */
 
 endmodule: fpga
