@@ -21,7 +21,7 @@ module memory_system (
 
   // Single-port IMEM BRAM (writes from host, reads from core)
 
-
+/*
   taxi_axil_ram #(
       .ADDR_W(16)
   ) imem_inst (
@@ -30,7 +30,14 @@ module memory_system (
       .s_axil_wr(s_axil_wr_imem_host),
       .s_axil_rd(s_axil_rd_imem_core)
   );
+*/
 
+bram_1rw (
+    .clk(core_clk),
+    .rst(core_rst),
+    .s_axil_wr(s_axil_wr_imem_host),
+    .s_axil_rd(s_axil_rd_imem_core)
+);
 
 
 
@@ -40,7 +47,11 @@ module memory_system (
       .probe0(s_axil_wr_imem_host.awvalid),  // core AW valid
       .probe1(s_axil_wr_imem_host.awaddr),   // core AW addr
       .probe2(s_axil_wr_imem_host.wvalid),   // core W valid
-      .probe3(s_axil_wr_imem_host.wdata)     // core W data
+      .probe3(s_axil_wr_imem_host.wdata),     // core W data
+      .probe4(s_axil_wr_imem_host.wstrb),
+      .probe5(s_axil_wr_imem_host.bvalid),
+      .probe6(s_axil_wr_imem_host.bready),
+      .probe7(s_axil_wr_imem_host.bresp)
   );
 
   ila_bus_read memsC_imem_rd (
@@ -93,7 +104,11 @@ module memory_system (
       .probe0(s_axil_wr_dmem_core.awvalid),  // core AW valid
       .probe1(s_axil_wr_dmem_core.awaddr),   // core AW addr
       .probe2(s_axil_wr_dmem_core.wvalid),   // core W valid
-      .probe3(s_axil_wr_dmem_core.wdata)     // core W data
+      .probe3(s_axil_wr_dmem_core.wdata),     // core W data
+      .probe4(s_axil_wr_dmem_core.wstrb),
+      .probe5(s_axil_wr_dmem_core.bvalid),
+      .probe6(s_axil_wr_dmem_core.bready),
+      .probe7(s_axil_wr_dmem_core.bresp)
   );
 
   ila_bus_read memsC_dmem_rd (
@@ -110,7 +125,11 @@ module memory_system (
       .probe0(s_axil_wr_dmem_host.awvalid),  // core AW valid
       .probe1(s_axil_wr_dmem_host.awaddr),   // core AW addr
       .probe2(s_axil_wr_dmem_host.wvalid),   // core W valid
-      .probe3(s_axil_wr_dmem_host.wdata)     // core W data
+      .probe3(s_axil_wr_dmem_host.wdata),     // core W data
+      .probe4(s_axil_wr_dmem_host.wstrb),
+      .probe5(s_axil_wr_dmem_host.bvalid),
+      .probe6(s_axil_wr_dmem_host.bready),
+      .probe7(s_axil_wr_dmem_host.bresp)
   );
 
   ila_bus_read memsH_dmem_rd (

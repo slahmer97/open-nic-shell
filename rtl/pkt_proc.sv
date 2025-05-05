@@ -13,9 +13,9 @@ module pkt_proc (
 
 
 
-  localparam C_NUM_SLAVES = 2;  
-  localparam IMEM_INDEX = 0; 
-  localparam DMEM_INDEX = 1; 
+  localparam C_NUM_SLAVES = 2;
+  localparam IMEM_INDEX = 0;
+  localparam DMEM_INDEX = 1;
 
   wire [ 1*C_NUM_SLAVES-1:0] axil_awvalid;
   wire [32*C_NUM_SLAVES-1:0] axil_awaddr;

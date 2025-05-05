@@ -278,7 +278,11 @@ module vexrv_wrapper #(
       .probe0(dmem_axil_wr.awvalid),  // core AW valid
       .probe1(dmem_axil_wr.awaddr),   // core AW addr
       .probe2(dmem_axil_wr.wvalid),   // core W valid
-      .probe3(dmem_axil_wr.wdata)     // core W data
+      .probe3(dmem_axil_wr.wdata),     // core W data
+      .probe4(dmem_axil_wr.wstrb),
+      .probe5(dmem_axil_wr.bvalid),
+      .probe6(dmem_axil_wr.bready),
+      .probe7(dmem_axil_wr.bresp)
   );
 
   ila_bus_read vex_dmem_read (
