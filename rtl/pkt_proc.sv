@@ -40,6 +40,7 @@ module pkt_proc (
 
   taxi_axil_if s_axil_dmem ();
   taxi_axil_if s_axil_imem ();
+  taxi_axi_if s_axi_pmem ();
 
   wire [31:0] imem_awaddr_raw, imem_araddr_raw;
   wire [31:0] dmem_awaddr_raw, dmem_araddr_raw;
@@ -143,7 +144,10 @@ module pkt_proc (
       .s_axil_rd_imem_host(s_axil_imem),  // TODO remove later just for debuging
 
       .s_axil_wr_dmem_host(s_axil_dmem),
-      .s_axil_rd_dmem_host(s_axil_dmem)
+      .s_axil_rd_dmem_host(s_axil_dmem),
+      
+      .s_axi_wr_pmem_dmover(s_axi_pmem),
+      .s_axi_rd_pmem_dmover(s_axi_pmem)
 
   );
 

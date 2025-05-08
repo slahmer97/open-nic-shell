@@ -26,24 +26,6 @@ _start:
     la   sp, _stack_top      /* defined by linker (DMEM_BASE+SIZE) */
 
     /* ---- 2. clear .bss ------------------------------------------ */
-    la   a0, __bss_start
-    la   a1, __bss_end
-1:  bgeu a0, a1, 2f
-    sw   zero, 0(a0)
-    addi a0, a0, 4
-    j    1b
-2:
-    /* ---- 3. install C interrupt handler ------------------------ */
-    la   t0, machine_isr     /* address of C ISR               */
-    csrw mtvec, t0           /* direct mode (MODE=0)           */
-
-    /* ---- 4. enable machine IRQ sources ------------------------- */
-    li   t0, 0x880           /* MEIE|MTIE bits in mie          */
-    csrw mie, t0
-    li   t0, 0x8             /* set MIE in mstatus             */
-    csrw mstatus, t0
-
-    /* ---- 5. call main ------------------------------------------ */
     call main
 
 halt:

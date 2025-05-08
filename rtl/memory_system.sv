@@ -14,25 +14,21 @@ module memory_system (
     taxi_axil_if.rd_slv s_axil_rd_dmem_core,
 
     taxi_axil_if.wr_slv s_axil_wr_dmem_host,
-    taxi_axil_if.rd_slv s_axil_rd_dmem_host
+    taxi_axil_if.rd_slv s_axil_rd_dmem_host,
+    
+    
+    taxi_axil_if.wr_slv s_axil_wr_pmem_core,
+    taxi_axil_if.rd_slv s_axil_rd_pmem_core,
+
+    // AXI4-Full write/read interface
+    taxi_axi_if.wr_slv s_axi_wr_pmem_dmover,
+    taxi_axi_if.rd_slv s_axi_rd_pmem_dmover
 
 );
 
 
-  // Single-port IMEM BRAM (writes from host, reads from core)
 
-/*
-  taxi_axil_ram #(
-      .ADDR_W(16)
-  ) imem_inst (
-      .clk      (core_clk),
-      .rst      (core_rst),
-      .s_axil_wr(s_axil_wr_imem_host),
-      .s_axil_rd(s_axil_rd_imem_core)
-  );
-*/
-
-bram_1rw (
+bram_1rw imem_inst (
     .clk(core_clk),
     .rst(core_rst),
     .s_axil_wr(s_axil_wr_imem_host),
@@ -63,24 +59,6 @@ bram_1rw (
   );
 
 
-  /*
-  taxi_axil_if dummy_imem_b ();
-  
-  taxi_axil_dp_ram #(
-    .ADDR_W(16)
-  ) imem_inst (
-     .a_clk       (core_clk),
-    .a_rst       (core_rst),
-    .s_axil_wr_a (s_axil_wr_imem_host),
-    .s_axil_rd_a (s_axil_rd_imem_host),
-    
-    .b_clk       (core_clk),
-    .b_rst       (core_rst),
-    .s_axil_wr_b (dummy_imem_b),
-    .s_axil_rd_b (s_axil_rd_imem_core)
-  );
-  
-  */
 
 
   // Dual-port DMEM (port A = core, port B = host)
@@ -141,6 +119,41 @@ bram_1rw (
   );
 
 
+  
+  
+  uram_2rw pmem_inst(
+    .clk(core_clk),
+    .rst(core_rst),
+
+    // AXI4-Lite write/read interface
+   .s_axi_wr(s_axi_wr_pmem_dmover),
+   .s_axi_rd(s_axi_rd_pmem_dmover),
+
+    // AXI4-Full write/read interface
+   .s_axil_wr(s_axil_wr_pmem_core),
+   .s_axil_rd(s_axil_rd_pmem_core)
+);
+
+
+  ila_bus_write memC_pmem_wr (
+      .clk   (core_clk),
+      .probe0(s_axil_wr_pmem_core.awvalid),  // core AW valid
+      .probe1(s_axil_wr_pmem_core.awaddr),   // core AW addr
+      .probe2(s_axil_wr_pmem_core.wvalid),   // core W valid
+      .probe3(s_axil_wr_pmem_core.wdata),     // core W data
+      .probe4(s_axil_wr_pmem_core.wstrb),
+      .probe5(s_axil_wr_pmem_core.bvalid),
+      .probe6(s_axil_wr_pmem_core.bready),
+      .probe7(s_axil_wr_pmem_core.bresp)
+  );
+
+  ila_bus_read memC_pmem_rd (
+      .clk   (core_clk),
+      .probe0(s_axil_rd_pmem_core.arvalid),  // core AR valid
+      .probe1(s_axil_rd_pmem_core.araddr),   // core AR addr
+      .probe2(s_axil_rd_pmem_core.rvalid),   // core R valid
+      .probe3(s_axil_rd_pmem_core.rdata)     // core R data
+  );
 
 
 endmodule

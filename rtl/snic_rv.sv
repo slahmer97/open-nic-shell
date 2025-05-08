@@ -9,6 +9,10 @@ module snic_rv (
     taxi_axil_if.rd_slv s_axil_rd_imem_host,  // TODO remove later just for debuging
 
 
+    taxi_axi_if.wr_slv s_axi_wr_pmem_dmover,
+    taxi_axi_if.rd_slv s_axi_rd_pmem_dmover,
+    
+    
     taxi_axil_if.wr_slv s_axil_wr_dmem_host,
     taxi_axil_if.rd_slv s_axil_rd_dmem_host
 );
@@ -140,17 +144,26 @@ module snic_rv (
   memory_system mem_system_inst (
       .core_clk(core_clk),
       .core_rst(core_rst),
-
+        //IMEM
       .s_axil_wr_imem_host(s_axil_wr_imem_host),
       //.s_axil_rd_imem_host(s_axil_rd_imem_host),
 
       .s_axil_rd_imem_core(imem_axil),
-
+        
+      //DMEM
       .s_axil_wr_dmem_core(dmem_axil),
       .s_axil_rd_dmem_core(dmem_axil),
 
       .s_axil_wr_dmem_host(s_axil_wr_dmem_host),
-      .s_axil_rd_dmem_host(s_axil_rd_dmem_host)
+      .s_axil_rd_dmem_host(s_axil_rd_dmem_host),
+        
+        
+      //PMEM
+      .s_axi_wr_pmem_dmover(s_axi_wr_pmem_dmover),
+      .s_axi_rd_pmem_dmover(s_axi_rd_pmem_dmover),
+      
+      .s_axil_wr_pmem_core(pmem_axil),
+      .s_axil_rd_pmem_core(pmem_axil)
 
   );
 
